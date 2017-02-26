@@ -1,9 +1,11 @@
 'use strict';
 
-exports.getAllMailboxes = require('./get').getAll('mailbox');
-exports.getAllLetters = require('./get').getAll('letter');
-exports.getAllUsers = require('./get').getAll('user');
+const get = require('./get');
 
-exports.getMailboxById = require('./get').getById('mailbox');
-exports.getLetterById = require('./get').getById('letter');
-exports.getUserById = require('./get').getById('user');
+exports.getAllMailboxes = get.all('mailbox');
+exports.getAllLetters = get.all('letter');
+exports.getAllUsers = get.all('user');
+
+exports.getMailboxById = get.oneById('mailbox');
+exports.getLetterById = get.oneById('letter');
+exports.getUserById = get.oneById('user');

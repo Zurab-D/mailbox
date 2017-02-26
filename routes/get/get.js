@@ -5,7 +5,7 @@ const config = require('config');
 
 
 // Get All Objects in Collection
-exports.getAll = function(model) {
+exports.all = function(model) {
     return function*() {
         const Model = require(path.join(config.root, 'models', `${model}.js`));
         this.body = yield Model.find({});
@@ -14,7 +14,7 @@ exports.getAll = function(model) {
 
 
 // Get Object by Id
-exports.getById = function(model) {
+exports.oneById = function(model) {
     return function*() {
         this.body = yield this.objById.toObject();
     };
