@@ -1,13 +1,11 @@
 'use strict';
 
-const path = require('path');
-const config = require('config');
-const User = require(path.join(config.root, 'models', 'user.js'));
+const del = require('./delete');
 
-module.exports = function*() {
-    yield this.userById.remove();
+exports.deleteAllMailboxes = del.all('mailbox');
+exports.deleteAllLetters = del.all('letter');
+exports.deleteAllUsers = del.all('user');
 
-    //this.redirect('/api/users');
-
-    this.body = 'Ok';
-};
+exports.deleteMailbox = del.oneById('mailbox');
+exports.deleteLetter = del.oneById('letter');
+exports.deleteUser = del.oneById('user');

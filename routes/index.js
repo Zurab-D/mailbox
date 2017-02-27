@@ -1,13 +1,5 @@
 'use strict';
 
-const Router = require('koa-router');
-const handlerGet = require('./get');
-const handlerPost = require('./post');
-const handlerPatch = require('./patch');
-const handlerDelete = require('./delete');
-const params = require('./params');
-
-
 /*
 GET /iliakan – вернуть всю базу
 GET /iliakan/users – вернуть всех пользователей
@@ -24,44 +16,47 @@ DELETE /iliakan/users/:id – удалить пользователя с дан�
 */
 
 
+const Router = require('koa-router');
+const handlerGet = require('./get');
+const handlerPost = require('./post');
+const handlerPatch = require('./patch');
+const handlerDelete = require('./delete');
+const params = require('./params');
+
+
 module.exports = app => {
     //const router = new Router({prefix: '/api/users'});
     const router = new Router();
+
     params(router);
 
-    // -------------------------------------------------------- //
     // router.get('/',                  handlerGet.getAllDB);
     router.post('/',                    handlerPost.addAnyDbObjects);
+    // ------------------------------------------------------------------ //
 
-    // -------------------------------------------------------- //
-    router.post('/users',               handlerPost.AddUsers);
     router.get('/users',                handlerGet.getAllUsers);
     router.get('/users/:user',          handlerGet.getUserById);
-    /*
-    router.patch('/users/:id',          handlerPatch.patchUser);
-    router.delete('/users/',            handlerPatch.deleteAllUsers);
-    router.delete('/users/:id',         handlerPatch.deleteUser);
-    */
+    router.post('/users',               handlerPost.AddUsers);
+    router.patch('/users/:user',        handlerPatch.patchUser(router));
+    router.delete('/users/',            handlerDelete.deleteAllUsers);
+    router.delete('/users/:user',       handlerDelete.deleteUser);
+    // ------------------------------------------------------------------ //
 
-    // -------------------------------------------------------- //
-    router.post('/letters',             handlerPost.AddLetters);
     router.get('/letters',              handlerGet.getAllLetters);
     router.get('/letters/:letter',      handlerGet.getLetterById);
-    /*
-    router.patch('/letters/:id',        handlerPatch.patchLetter);
-    router.delete('/letters/',          handlerPatch.deleteAllLetters);
-    router.delete('/letters/:id',       handlerPatch.deleteLetter);
-    */
-    // -------------------------------------------------------- //
+    router.post('/letters',             handlerPost.AddLetters);
+    router.patch('/letters/:letter',    handlerPatch.patchLetter(router));
+    router.delete('/letters/',          handlerDelete.deleteAllLetters);
+    router.delete('/letters/:letter',   handlerDelete.deleteLetter);
+    // ------------------------------------------------------------------ //
 
-    router.post('/mailboxes',           handlerPost.AddMailboxes);
     router.get('/mailboxes',            handlerGet.getAllMailboxes);
     router.get('/mailboxes/:mailbox',   handlerGet.getMailboxById);
-    /*
-    router.patch('/mailboxes/:id',      handlerPatch.patchMailbox);
-    router.delete('/mailboxes/',        handlerPatch.deleteAllMailboxes);
-    router.delete('/mailboxes/:id',     handlerPatch.deleteMailbox);
-    */
+    router.post('/mailboxes',           handlerPost.AddMailboxes);
+    router.patch('/mailboxes/:mailbox', handlerPatch.patchMailbox(router));
+    router.delete('/mailboxes/',        handlerDelete.deleteAllMailboxes);
+    router.delete('/mailboxes/:mailbox',handlerDelete.deleteMailbox);
+    // ------------------------------------------------------------------ //
 
     app.use(router.routes());
     return router;

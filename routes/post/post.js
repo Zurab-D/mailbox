@@ -4,7 +4,7 @@ const path = require('path');
 const config = require('config');
 
 module.exports = function(model) {
-    return function*() {
+    return function*(next) {
         const Model = require(path.join(config.root, 'models', `${model}.js`));
 
         let data = this.request.body;
