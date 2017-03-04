@@ -11,6 +11,7 @@ const uniqueValidator = require('mongoose-unique-validator');
     String title* -- название
 */
 
+
 let mailboxSchema = new mongoose.Schema({
     title: {
         type: String,

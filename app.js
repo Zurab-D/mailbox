@@ -17,6 +17,10 @@ const Router = require('koa-router');
 const app = koa();
 
 
+// keys for in-koa KeyGrip cookie signing (used in session, maybe other modules)
+app.keys = [config.secret];
+
+
 // -- Middlewares ----------
 require('./middlewares')(app);
 

@@ -17,11 +17,12 @@ DELETE /iliakan/users/:id – удалить пользователя с дан�
 
 
 const Router = require('koa-router');
+const params = require('./params');
 const handlerGet = require('./get');
 const handlerPost = require('./post');
 const handlerPatch = require('./patch');
 const handlerDelete = require('./delete');
-const params = require('./params');
+const auth = require('./auth');
 
 
 module.exports = app => {
@@ -56,6 +57,13 @@ module.exports = app => {
     router.patch('/mailboxes/:mailbox', handlerPatch.patchMailbox(router));
     router.delete('/mailboxes/',        handlerDelete.deleteAllMailboxes);
     router.delete('/mailboxes/:mailbox',handlerDelete.deleteMailbox);
+    // ------------------------------------------------------------------ //
+
+    router.post('/signup',          auth.signup);
+    router.post('/signin',          auth.signin);
+    router.get('/authorized',       auth.authorized);
+    router.get('/logout',           auth.logout);
+    router.get('/salt/:saltuser',   auth.salt);
     // ------------------------------------------------------------------ //
 
     app.use(router.routes());

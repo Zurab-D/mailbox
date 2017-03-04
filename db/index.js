@@ -7,13 +7,6 @@ mongoose.Promise = Promise;
 
 mongoose.set('debug', config.debug);
 
-mongoose.connect('mongodb://localhost/' + config.dbName, {
-  server: {
-    socketOptions: {
-      keepAlive: 1
-    },
-    poolSize: 5
-  }
-});
+mongoose.connect(config.mongoose.uri + config.dbName, config.mongoose.options);
 
 module.exports = mongoose;
