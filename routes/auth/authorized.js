@@ -7,5 +7,4 @@ module.exports = function*(next) {
     } else {
         this.body = { authorised: false };
     };
-    console.log(this.body);
 };

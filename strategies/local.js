@@ -7,7 +7,6 @@ module.exports = new LocalStrategy(
         passwordField: 'password'
     },
     (username, password, done) => {
-console.log(`---------------->>> LocalStrategy :: username=${username}; password=${password};`);
         Login.findOne({ username: username }, (err, login) => {
             if (err) return done(err);
 

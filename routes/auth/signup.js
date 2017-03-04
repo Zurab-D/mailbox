@@ -6,7 +6,6 @@ const path = require('path');
 const Login = require(path.join(config.root, 'models', 'login'));
 
 module.exports = function*(next) {
-console.log(`------------------------->>> sin UP`);
     let { displayName, username, email, password } = this.request.body;
 
     let login = yield Login.findOne({ username: username });
