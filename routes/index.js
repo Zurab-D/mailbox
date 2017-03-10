@@ -16,7 +16,7 @@ DELETE /iliakan/users/:id – удалить пользователя с дан�
 */
 
 
-const Router = require('koa-router');
+// const Router = require('koa-router');
 const params = require('./params');
 const handlerGet = require('./get');
 const handlerPost = require('./post');
@@ -25,9 +25,21 @@ const handlerDelete = require('./delete');
 const auth = require('./auth');
 
 
-module.exports = app => {
-    //const router = new Router({prefix: '/api/users'});
-    const router = new Router();
+module.exports = (app, router) => {
+    // const router = new Router({prefix: '/api/users'});
+    // const router = new Router();
+
+    // check if user is authenticated
+    app.use(function* (next) {
+      const pathname = decodeURI(require('url').parse(this.request.url).pathname).toLowerCase();
+
+      if (pathname === '/signin' || pathname === '/signup' || pathname === '/authorized' || this.isAuthenticated()) {
+          yield * next;
+      } else {
+          this.throw(403);
+      }
+    });
+
 
     params(router);
 

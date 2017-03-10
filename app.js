@@ -12,6 +12,7 @@ const config = require('config');
 const path = require('path');
 const fs = require('fs');
 const Router = require('koa-router');
+const router = new Router();
 
 
 const app = koa();
@@ -26,7 +27,7 @@ require('./middlewares')(app);
 
 
 // -- Router ----------
-require('./routes')(app);
+require('./routes')(app, router);
 
 
 // -- Export ----------

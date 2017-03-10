@@ -4,6 +4,7 @@ module.exports = function* (next) {
   try {
     yield * next;
   } catch (e) {
+
     // for preventing hacker attacks
     this.set('X-Content-Type-Options', 'nosniff');
 
